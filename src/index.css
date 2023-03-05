@@ -1,3 +1,11 @@
+.swiper-pagination-bullet-active {
+  background-color: #00A0AB !important;
+}
+
+.swiper-pagination-bullet {
+  opacity: .7 !important
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

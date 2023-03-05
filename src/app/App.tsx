@@ -1,0 +1,1 @@
+import React from 'react';import {Pages} from "app/Pages/Pages";function App() {  return (    <div>      <Pages/>    </div>  );}export default App;
