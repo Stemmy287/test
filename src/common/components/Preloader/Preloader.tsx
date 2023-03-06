@@ -1,8 +1,5 @@
 import React from 'react';
-import {Spinner} from 'common/components/Preloader/preloaderStyle'
+import {Spinner} from 'common/components/Preloader/preloaderStyles'
 
-
-export const Preloader = () => {
-  return <Spinner/>
-};
+export const Preloader = () => <Spinner/>;
 

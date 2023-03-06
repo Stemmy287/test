@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Img = styled.img`
   width: 224px;
   height: 260px;
+  border-radius: 15px 15px 0 0;
 `
 
 export const Seen = styled.div`

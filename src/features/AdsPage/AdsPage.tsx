@@ -1,49 +1,47 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
-import {adsApi, AdsType} from "api/adsApi";
+import {AdsItemType} from "api/adsApi";
 import {dateConverter} from "common/utils/dateConverter";
 import {Preloader} from "common/components/Preloader/Preloader";
 import BackLink from "common/components/BackLink/BackLink";
-import {AdsPageContainer, Img, Price, Title, AddressAndDate} from 'features/AdsPage/adsPageStyle';
+import {AddressAndDate, AdsPageContainer, Img, Price, Title} from 'features/AdsPage/adsPageStyles';
+import {fetchAdsItem} from "api/fetchUtils/fetchAdsItem";
+import {ErrorLoadData} from "common/components/ErrorLoadData/ErrorLoadData";
 
 export const AdsPage = () => {
 
-  const {id} = useParams()
+  const {adsId} = useParams()
 
-  const [ads, setAds] = useState<AdsType>()
+  const [adsItem, setAdsItem] = useState<AdsItemType>()
   const [isLoading, setIsLoading] = useState(true)
-
-  const fetchAdsItem = async (id: string) => {
-    try {
-      const res = await adsApi.getAds(id)
-      setAds(res)
-    } catch (e) {
-      return 'error'
-    }
-  }
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    if (id) {
-      fetchAdsItem(id)
-        .finally(() => setIsLoading(false))
+    if (adsId) {
+      fetchAdsItem(adsId, setAdsItem, setError, setIsLoading)
     }
   }, [])
 
-  const date = dateConverter(ads?.createdAt || '')
+  const date = dateConverter(adsItem?.createdAt || '')
 
   return (
     <AdsPageContainer>
       {isLoading ? <Preloader/> :
         <>
           <BackLink/>
-          <Img src='https://source.unsplash.com/random' alt=""/>
-          <Title>{ads?.title}</Title>
-          <Price>{`${ads?.price} ₽`}</Price>
-          <AddressAndDate>
-            <span>{`${ads?.address} ₽`}</span>
-            <span>{date}</span>
-          </AddressAndDate>
-        </>}
+          {error ? <ErrorLoadData/> :
+            <>
+              <Img src='https://source.unsplash.com/random' alt=""/>
+              <Title>{adsItem?.title}</Title>
+              <Price>{`${adsItem?.price} ₽`}</Price>
+              <AddressAndDate>
+                <span>{`${adsItem?.address} ₽`}</span>
+                <span>{date}</span>
+              </AddressAndDate>
+            </>
+          }
+        </>
+      }
     </AdsPageContainer>
   );
 };

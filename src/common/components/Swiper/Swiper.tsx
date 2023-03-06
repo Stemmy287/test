@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Navigation, Pagination} from "swiper";
 import {generationArray} from "common/utils/generationArray";
-import {Img, Seen} from 'common/components/Swiper/swiperStyled';
+import {Img, Seen} from 'common/components/Swiper/swiperStyles';
 
 type Props = {
   seen: boolean

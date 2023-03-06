@@ -1,6 +1,6 @@
 import React from 'react';
 import {Skeleton} from "@mui/material";
-import {AdsCardContainer, Content, Image, PriceAndLike, SkeletonSwiper, Title} from "features/AdsCard/adsCardStyle";
+import {AdsCardContainer, Content, Image, PriceAndLike, SkeletonSwiper, Title} from "features/AdsCard/adsCardStyles";
 
 export const AdsCardSkeleton = () => {
   return (

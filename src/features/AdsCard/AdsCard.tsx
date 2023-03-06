@@ -5,7 +5,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import {SwiperPhoto} from "common/components/Swiper/Swiper";
 import {NavLink} from "react-router-dom";
-import {AdsType} from "api/adsApi";
+import {AdsItemType} from "api/adsApi";
 import {
   AdsCardContainer,
   CityAndCreatedAt,
@@ -14,11 +14,11 @@ import {
   LikeIcon,
   PriceAndLike,
   Title
-} from 'features/AdsCard/adsCardStyle';
+} from 'features/AdsCard/adsCardStyles';
 
 
 type Props = {
-  adsData: AdsType
+  adsData: AdsItemType
 }
 
 export const AdsCard: FC<Props> = ({adsData}) => {

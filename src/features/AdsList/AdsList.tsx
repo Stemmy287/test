@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {AdsCard} from "features/AdsCard/AdsCard";
 import {Button} from "common/components/Button/Button";
-import {adsApi, ResponseType} from "api/adsApi";
+import {AdsDataResponseType} from "api/adsApi";
 import {AdsCardSkeleton} from "features/AdsCard/AdsCardSkeleton";
 import {Preloader} from "common/components/Preloader/Preloader";
 import {generationArray} from "common/utils/generationArray";
-import {AdsListContainer, AdsCards, NoItems, Error} from 'features/AdsList/adsListStyle';
+import {AdsCards, AdsListContainer, NoItems} from 'features/AdsList/adsListStyles';
+import {fetchAdsData} from "api/fetchUtils/fetchAdsData";
+import {ErrorLoadData} from "common/components/ErrorLoadData/ErrorLoadData";
 
 export const AdsList = () => {
 
-  const [adsData, setAdsArray] = useState<ResponseType>({
+  const [adsData, setAdsData] = useState<AdsDataResponseType>({
     items: [],
     page: 0,
     pages: 0,
@@ -23,44 +25,24 @@ export const AdsList = () => {
 
   const skeletonData = generationArray(8)
 
-  const fetchAdsData = async (page: number) => {
-    try {
-      const res = await adsApi.getAdsArray(page)
-      setAdsArray({
-        ...res,
-        items: [...adsData.items, ...res.items]
-      })
-    } catch (e) {
-      return 'error'
-    }
-  }
-
   const onPageClickHandler = () => {
     setIsLoading(true)
-    fetchAdsData(adsData.page + 1)
-      .then(res => {
-        res && setError(true)
-      }).finally(() => {
-      setIsLoading(false)
-    })
+    fetchAdsData(adsData.page + 1, adsData, setAdsData, setError)
+      .finally(() => setIsLoading(false))
   }
 
   useEffect(() => {
-    fetchAdsData(1)
-      .then(res => {
-        res && setError(true)
-      })
-      .finally(() => setIsInitialized(false))
+    fetchAdsData(1, adsData, setAdsData, setError, setIsInitialized)
   }, [])
+
+  const isDataEmpty = !adsData.items.length && !isInitialized && !error
+  const isDisplayButton = adsData.total > adsData.items.length || error
 
   const demoDataMapped = skeletonData.map(el =>
     <AdsCardSkeleton key={el}/>)
 
   const adsDataMapped = adsData.items.map(ads =>
     <AdsCard key={ads.id} adsData={{...ads}}/>)
-
-  const isDataEmpty = !adsData.items.length && !isInitialized && !error
-  const isDisplayButton = adsData.total > adsData.items.length || error
 
   return (
     <AdsListContainer>
@@ -74,7 +56,7 @@ export const AdsList = () => {
       </AdsCards>
       {isLoading ? <Preloader/> :
         <>
-          {error && <Error>Ошибка при загрузке</Error>}
+          {error && <ErrorLoadData/>}
           {isDisplayButton &&
               <Button title={error ? 'повторить попытку' : 'показать еще'} callback={onPageClickHandler}/>}
         </>

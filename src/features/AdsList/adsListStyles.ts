@@ -7,11 +7,11 @@ export const AdsListContainer = styled.div`
   width: 64%;
   margin: 0 auto;
 `
-
 export const NoItems = styled.div`
   margin: 200px auto 0 auto;
   max-width: 251px;
   text-align: center;
+
   h1 {
     text-transform: uppercase;
     font-weight: 500;
@@ -19,6 +19,7 @@ export const NoItems = styled.div`
     line-height: 19px;
     color: #00A0AB;
   }
+
   span {
     font-weight: 400;
     font-size: 14px;
@@ -35,12 +36,4 @@ export const AdsCards = styled.div`
   flex-wrap: wrap;
   column-gap: 30px;
   row-gap: 30px;
-`
-
-export const Error = styled.span`
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  color: #8F8F8F;
-  margin: 0 auto 10px auto;
 `

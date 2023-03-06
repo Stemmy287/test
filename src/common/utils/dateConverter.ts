@@ -9,5 +9,7 @@
 export const dateConverter = (date: string) => {
 
   const localDate = new Date(date.replace(/ /g, ''))
+
   return localDate.toLocaleDateString() + ', ' + localDate.toLocaleTimeString().slice(0, 5).replace(/[^0-9]/gi, '.')
+
 }

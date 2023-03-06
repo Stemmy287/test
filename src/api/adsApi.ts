@@ -5,25 +5,25 @@ const instance = axios.create({
 })
 
 export const adsApi = {
-  getAdsArray(pageCount: number) {
-    return instance.get<ResponseType>(`?page=${pageCount}&size=8`)
+  getAdsData(pageCount: number) {
+    return instance.get<AdsDataResponseType>(`?page=${pageCount}&size=8`)
       .then(res => res.data)
   },
-  getAds(id: string) {
-    return instance.get<AdsType>(`/${id}`)
+  getAdsItem(id: string) {
+    return instance.get<AdsItemType>(`/${id}`)
       .then(res => res.data)
   }
 }
 
-export type ResponseType = {
-  items: AdsType[]
+export type AdsDataResponseType = {
+  items: AdsItemType[]
   total: number
   page: number
   size: number
   pages: number
 }
 
-export type AdsType = {
+export type AdsItemType = {
   id: string
   seen: boolean
   price: number
