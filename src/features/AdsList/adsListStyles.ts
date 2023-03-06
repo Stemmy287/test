@@ -20,7 +20,7 @@ export const NoItems = styled.div`
     color: #00A0AB;
   }
 
-  span {
+  p {
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
